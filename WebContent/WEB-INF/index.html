@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/proto/test/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+     $(function(){
+    	 
+    	 $.ajax({
+    		url:'/proto/hello/hello',
+    		type:'get',
+    		data:'a=aaa&b=bbb',
+    		dataType:'text',
+    		success:function(msg){
+    			console.log("success");
+    			console.log(msg);
+    			alert(msg);
+    		},
+    		error:function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            }
+    		 
+    	 });
+    	 
+     })
+</script>
+</head>
+<body>
+        Hello ! boy
+        <a href="fweb/xxx.action" target="_blank"></a>
+</body>
+</html>

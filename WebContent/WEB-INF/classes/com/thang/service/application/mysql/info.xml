@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap namespace="info">
+    
+    <sql id="query">
+        select id,uname,upass,sex,birthday,create_time,icon,opt from sys_user_info
+        where 1=1
+        @code{suffix=' and '}
+        @if{isdef uname &amp;&amp; null!=uname &amp;&amp; ''!=uname.trim()}
+            @{suffix}
+            uname like '%@{uname}%'
+        @end{}
+        
+        @if{ isdef upass &amp;&amp; null!=upass &amp;&amp; ''!=upass.trim()}
+            @{suffix}
+            upass='@{upass}'
+        @end{}
+        
+        @if{ isdef sex}
+            @{suffix}
+            sex=@{sex}
+        @end{}
+        
+        @if{ isdef birthday &amp;&amp; null!=birthday &amp;&amp; ''!=birthday.trim()}
+            @{suffix}
+            birthday='@{birthday}'
+        @end{}
+        
+        @if{ isdef create_time &amp;&amp; null!=create_time &amp;&amp; ''!=create_time.trim()}
+            @{suffix}
+            create_time='@{create_time}'
+        @end{}
+        
+        @if{ isdef icon &amp;&amp; null!=icon &amp;&amp; ''!=icon.trim()}
+            @{suffix}
+            icon='@{icon}'
+        @end{}
+        
+        @if{ isdef opt &amp;&amp; null!=opt &amp;&amp; ''!=opt.trim()}
+            @{suffix}
+            opt like '%@{opt}%'
+        @end{}
+    </sql>
+    
+    <!-- 得到指定ID记录 -->
+    <sql id="get">
+        select * from sys_user_info where @if{id!=null} id=@{id} @end{}
+    </sql>
+    
+    <!-- 修改 -->
+    <sql id="update">
+        update sys_user_info set
+        @code{suffix=''}
+        @if{ isdef uname &amp;&amp; null!=uname &amp;&amp; ''!=uname.trim()}
+            uname='@{uname}'
+            @code{suffix=','}
+        @end{}
+        
+        @if{ isdef upass &amp;&amp; null!=upass &amp;&amp; ''!=upass.trim()}
+            @{suffix}
+            upass='@{upass}'
+            @if{''==suffix}
+                @code{suffix=','}
+            @end{}
+        @end{}
+        
+        @if{ isdef sex &amp;&amp; null!=sex }
+            @{suffix}
+            sex=@{sex}
+            @if{''==suffix}
+                @code{suffix=','}
+            @end{}
+        @end{}
+        
+        @if{ isdef birthiday &amp;&amp; null!=birthday &amp;&amp; ''!=birthday.trim()}
+            @{suffix}
+            birthday='@{birthday}'
+            @if{''==suffix}
+                @code{suffix=','}
+            @end{}
+        @end{}
+        
+        @if{ isdef icon &amp;&amp; null!=icon &amp;&amp; ''!=icon.trim()}
+            @{suffix}
+            icon='@{icon}'
+            @if{''==suffix}
+                @code{suffix=','}
+            @end{}
+        @end{}
+        
+        @if{ isdef create_time &amp;&amp; null!=create_time &amp;&amp; ''!=create_time.trim()}
+            @{suffix}
+            create_time='@{create_time}'
+            @if{''==suffix}
+                @code{suffix=','}
+            @end{}
+        @end{}
+        
+        @if{ isdef opt &amp;&amp; null!=opt &amp;&amp; ''!=opt.trim()}
+            @{suffix}
+            opt='@{opt}'
+        @end{}
+        where id=@{id}
+    </sql>
+    
+    <!-- 删除指定ID -->
+    <sql id="delete">
+        delete from sys_user_info where id=@{id}
+    </sql>
+    
+    <!-- 批量删除 -->
+    <sql id="deletes">
+        delete from sys_user_info where id in (
+                                                @foreach{id:ids}
+                                                   @{id}
+                                                @end{','}
+                                               )
+    </sql>
+    
+</sqlMap>
